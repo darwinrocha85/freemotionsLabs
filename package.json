@@ -1,0 +1,19 @@
+{
+  "name": "freemotions-labs",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Visor de archivos C3D (captura de movimiento) en el navegador. Todo se lee en el cliente.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "inspect": "node scripts/inspect.mjs"
+  },
+  "dependencies": {
+    "three": "^0.170.0"
+  },
+  "devDependencies": {
+    "vite": "^5.4.21"
+  }
+}

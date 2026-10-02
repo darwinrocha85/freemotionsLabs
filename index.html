@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>freemotionsLabs — visor C3D</title>
+    <meta
+      name="description"
+      content="Abre un archivo C3D de captura de movimiento y míralo en 3D en el navegador. El archivo no se sube a ningún servidor."
+    />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230b1020'/%3E%3Ccircle cx='16' cy='8' r='3' fill='%235ee6c8'/%3E%3Cpath d='M16 11v8m0 0-5 7m5-7 5 7M9 14l7-2 7 2' stroke='%235ee6c8' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"
+    />
+  </head>
+  <body>
+    <div class="app">
+      <header class="topbar">
+        <div class="brand">
+          <span class="brand-mark" aria-hidden="true">fM</span>
+          <div class="brand-text">
+            <strong>freemotionsLabs</strong>
+            <span>Visor C3D en el navegador</span>
+          </div>
+        </div>
+        <div class="top-actions">
+          <button type="button" class="btn btn-primary" id="btn-open">Abrir archivo .c3d</button>
+          <input id="file-input" type="file" accept=".c3d" hidden />
+        </div>
+      </header>
+
+      <main class="stage">
+        <div id="viewer" class="viewer"></div>
+
+        <section id="dropzone" class="dropzone" aria-labelledby="drop-title">
+          <div class="drop-card">
+            <h1 id="drop-title">Arrastra aquí un archivo C3D</h1>
+            <p>
+              Verás los marcadores en 3D y podrás reproducir el movimiento. El archivo se lee en tu navegador:
+              <strong>no se sube a ningún servidor</strong>.
+            </p>
+            <button type="button" class="btn btn-primary" id="btn-choose">Elegir archivo</button>
+            <p class="fine">
+              ¿No tienes uno? Elige un ejemplo de la lista de abajo, o busca más en
+              <a href="https://www.c3d.org/sampledata.html" target="_blank" rel="noopener noreferrer">c3d.org</a>.
+            </p>
+          </div>
+        </section>
+
+        <div id="drag-hint" class="drag-hint" hidden>Suelta el archivo para abrirlo</div>
+
+        <div id="status" class="status" hidden>
+          <p id="status-text" role="status" aria-live="polite"></p>
+          <progress id="status-progress" max="1" hidden></progress>
+        </div>
+
+        <figure id="video-box" class="videobox" hidden>
+          <video id="video" muted playsinline preload="auto" aria-label="Vídeo de referencia de la captura"></video>
+          <figcaption>Cámara de la sesión</figcaption>
+        </figure>
+
+        <details id="info" class="info" hidden>
+          <summary>Información del archivo</summary>
+          <dl id="info-list"></dl>
+          <ul id="warnings" class="warnings"></ul>
+        </details>
+      </main>
+
+      <section class="gallery" aria-labelledby="gallery-title">
+        <div class="gallery-head">
+          <h2 id="gallery-title">Ejemplos</h2>
+          <p>
+            Un C3D es el formato estándar de la captura de movimiento: cada punto es un marcador pegado al cuerpo
+            y el visor dibuja cómo se mueve.
+          </p>
+        </div>
+        <ul id="gallery-list" class="gallery-list"></ul>
+        <p id="gallery-credit" class="gallery-credit"></p>
+      </section>
+
+      <footer class="controls" id="controls" aria-label="Controles de reproducción">
+        <div class="row row-main">
+          <button type="button" class="btn icon" id="btn-play" aria-label="Reproducir" disabled>▶</button>
+          <button type="button" class="btn icon" id="btn-stop" aria-label="Volver al inicio" disabled>■</button>
+          <label class="sr-only" for="seek">Fotograma</label>
+          <input id="seek" type="range" min="0" max="0" step="1" value="0" disabled />
+          <output id="time" class="time" for="seek">—</output>
+        </div>
+        <div class="row row-options">
+          <label class="field">
+            <span>Velocidad</span>
+            <select id="speed" disabled>
+              <option value="0.25">0,25×</option>
+              <option value="0.5">0,5×</option>
+              <option value="1" selected>1×</option>
+              <option value="2">2×</option>
+            </select>
+          </label>
+          <label class="field">
+            <span>Rastro</span>
+            <select id="trail" disabled>
+              <option value="0" selected>Sin rastro</option>
+              <option value="15">15 fotogramas</option>
+              <option value="30">30 fotogramas</option>
+              <option value="60">60 fotogramas</option>
+            </select>
+          </label>
+          <label class="field">
+            <span>Eje vertical</span>
+            <select id="up" disabled>
+              <option value="z" selected>Z arriba</option>
+              <option value="y">Y arriba</option>
+            </select>
+          </label>
+          <label class="check"><input id="skeleton" type="checkbox" checked disabled /> Esqueleto</label>
+          <label class="check"><input id="follow" type="checkbox" disabled /> Seguir al sujeto</label>
+          <button type="button" class="btn" id="btn-reset" disabled>Restablecer vista</button>
+        </div>
+      </footer>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

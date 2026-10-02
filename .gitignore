@@ -1,0 +1,19 @@
+node_modules/
+dist/
+.firebase/
+.firebase-hosting.*
+firebase-debug.log
+*.log
+.env
+.engram/
+.opencode/
+
+# Muestras de c3d.org: sin licencia de redistribución.
+# Solo en local para `npm run inspect`. Nunca en git ni en la web.
+samples/
+samples/**/*.c3d
+samples/**/*.mpg
+samples/**/*.avi
+
+# Los C3D de la demo SÍ van a git, pero solo si tienen licencia clara.
+# Ver public/examples/LICENCIAS.md. Todo lo de c3d.org queda excluido.
